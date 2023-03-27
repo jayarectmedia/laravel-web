@@ -23,8 +23,10 @@ Route::get('/contact', [App\Http\Controllers\DashboardController::class, 'contac
 
 
 //route menggunakan resource
-Route::resource('siswa', App\Http\Controllers\SiswaController::class);
+Route::resource('siswa', App\Http\Controllers\SiswaController::class)->middleware('isLogin');
 
-Route::get('/login', [App\Http\Controllers\SessionController::class, 'index']);
-Route::post('/post/login', [App\Http\Controllers\SessionController::class, 'login']);
+Route::get('/login', [App\Http\Controllers\SessionController::class, 'index'])->middleware('isTamu');
+Route::get('/register', [App\Http\Controllers\SessionController::class, 'register'])->middleware('isTamu');
+Route::post('/post/login', [App\Http\Controllers\SessionController::class, 'login'])->middleware('isTamu');
+Route::post('/post/register', [App\Http\Controllers\SessionController::class, 'create'])->middleware('isTamu');
 Route::get('/logout', [App\Http\Controllers\SessionController::class, 'logout']);
